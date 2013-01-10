@@ -1,0 +1,26 @@
+#!/usr/bin/gorun
+package main
+
+import (
+  "fmt"
+  "os"
+  "bytes"
+  "io/ioutil"
+)
+
+func main(){
+  old, replace := []byte{'\t'}, []byte{' ',' '}
+  for _, file := range os.Args[1:] {
+    contents, err := ioutil.ReadFile(file)
+    if err != nil {
+      fmt.Fprintln(os.Stderr, err.Error())
+      os.Exit(1)
+    }
+    result := bytes.Replace(contents, old, replace, -1)
+    ioutil.WriteFile(file, result, 0644)
+    if err != nil {
+      fmt.Fprintln(os.Stderr, err.Error())
+      os.Exit(1)
+    }
+  }
+}

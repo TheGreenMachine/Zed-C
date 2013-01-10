@@ -4,7 +4,6 @@
 class Zed : public SimpleRobot {
 
 public:
-	
 	Zed();
 
 	void Autonomous();
