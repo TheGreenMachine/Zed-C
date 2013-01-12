@@ -4,9 +4,9 @@
 
 class QuadraticFilter : public GamePadFilter {
   public :
-    double LeftX(double x){return x*x;}
-    double LeftY(double x){return x*x;}
-    double RightX(double x){return x*x;}
-    double RightY(double x){return x*x;}
+    float LeftX(float x){return x*x;}
+    float LeftY(float x){return x*x;}
+    float RightX(float x){return x*x;}
+    float RightY(float x){return x*x;}
 };
 #endif
