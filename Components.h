@@ -27,9 +27,13 @@ class Components{
 			shooterMotor(SHOOTER_MOTOR)
 		{
 			QuadraticFilter* q = new QuadraticFilter(); 
+			DeadZoneFilter* d = new DeadZoneFilter(); 
 			driver.addFilter(smartptr<GamePadFilter>(q));
+			driver.addFilter(smartptr<GamePadFilter>(d));
 			q = new QuadraticFilter(); //Not sure if this second allocation is necessary
+			q = new DeadZoneFilter(); //Not sure if this second allocation is necessary
 			shooter.addFilter(smartptr<GamePadFilter>(q));
+			shooter.addFilter(smartptr<GamePadFilter>(d));
 		}
 };
 #endif
