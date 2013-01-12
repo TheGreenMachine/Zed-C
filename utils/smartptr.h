@@ -1,5 +1,5 @@
-#ifndef smartPTR_H
-#define smartPTR_H
+#ifndef SMART_PTR_H
+#define SMART_PTR_H
 
 template<typename T>
 class smartptr{

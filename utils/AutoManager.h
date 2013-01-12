@@ -11,7 +11,7 @@ class AutoManager {
 			robot(base),
 			steps(inputSteps){}
 		void run();
-	private:
+	protected:
 		SimpleRobot& robot;
 		std::vector<smartptr<AutoStep> > steps;
 		bool isRunning();

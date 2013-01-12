@@ -6,9 +6,9 @@
  */
 class GamePadFilter {
 	public:
-		virtual double LeftX(double) = 0;
-		virtual double RightX(double) = 0;
-		virtual double LeftY(double) = 0;
-		virtual double RightY(double) = 0;
+		virtual float LeftX(float) = 0;
+		virtual float RightX(float) = 0;
+		virtual float LeftY(float) = 0;
+		virtual float RightY(float) = 0;
 };
 #endif

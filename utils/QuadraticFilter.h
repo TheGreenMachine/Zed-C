@@ -1,6 +1,6 @@
 #ifndef QUADRATIC_FILTER_H
 #define QUADRATIC_FILTER_H
-#include "GamePadFilter"
+#include "GamePadFilter.h"
 
 class QuadraticFilter : public GamePadFilter {
   public :
@@ -8,5 +8,5 @@ class QuadraticFilter : public GamePadFilter {
     double LeftY(double x){return x*x;}
     double RightX(double x){return x*x;}
     double RightY(double x){return x*x;}
-
+};
 #endif

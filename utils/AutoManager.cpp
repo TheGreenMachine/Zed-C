@@ -5,7 +5,7 @@ typedef std::vector<smartptr<AutoStep> >::iterator iter; //For readability
 void AutoManager::run(){
 	for(iter i = steps.begin(); i != steps.end() && isRunning(); ++i){
 		(*i)->init();
-		while(isRunning() && !((*i)->isDone() )){
+		while(isRunning() && !(*i)->isDone()){
 			(*i)->run();
 		}
 		(*i)->finish();
