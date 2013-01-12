@@ -16,10 +16,12 @@
  */
 class FilteredGamePad : public GamepadL {
 	public:
-		FilteredGamePad(unsigned int port, const std::vector< smartptr<GamePadFilter> >& inputFilters):
-			GamepadL(port),
-			filters(inputFilters){}
+		FilteredGamePad(unsigned int port):
+			GamepadL(port){}
 
+		void addFilter(smartptr<GamePadFilter> filter){
+			filters.push_back(filter);
+		}
 		virtual float GetLeftX();
 		virtual float GetLeftY();
 		virtual float GetRightX();
