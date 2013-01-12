@@ -10,7 +10,7 @@ class DeadZoneFilter : public GamePadFilter {
 		float RightY(float x){return coerceInRange(x);}
 	private:
 		float coerceInRange(float x){
-			return x<10 ? 0 : x;
+			return x<0.1  && x >-0.1? 0 : x;
 		}
 };
 #endif
