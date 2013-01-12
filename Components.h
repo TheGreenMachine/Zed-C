@@ -8,6 +8,7 @@ class Components{
 		FilteredGamePad driver;
 		FilteredGamePad shooter;
 		RobotDrive driveTrain;
+		Jaguar shooterMotor;
 		
 	private:
 		//Warning these numbers are made up :)
@@ -17,11 +18,13 @@ class Components{
 		static const unsigned short BACK_RIGHT_WHEEL = 3;
 		static const unsigned short DRIVER_PORT = 0;
 		static const unsigned short SHOOTER_PORT = 1;
+		static const unsigned short SHOOTER_MOTOR = 4;
 		static const std::vector<smartptr<GamePadFilter> > FILTERS; 
 		Components():
 			driver(DRIVER_PORT),
 			shooter(SHOOTER_PORT),
-			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL)
+			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL),
+			shooterMotor(SHOOTER_MOTOR)
 		{
 			QuadraticFilter* q = new QuadraticFilter(); 
 			driver.addFilter(smartptr<GamePadFilter>(q));

@@ -11,5 +11,6 @@ class Zed : public SimpleRobot {
 		float speedX;
 		float speedY;
 		float rotation;
+		float shooterPower;
 };
 #endif
