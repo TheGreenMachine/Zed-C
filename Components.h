@@ -1,11 +1,10 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 #include "utils/utils.h"
-#include <vector>
 
 class Components{
 	public:
-		Components& getInstance(){static Components instance; return instance;}
+		static Components& getInstance(){static Components instance; return instance;}
 		FilteredGamePad driver;
 		FilteredGamePad shooter;
 		RobotDrive driveTrain;
@@ -30,5 +29,4 @@ class Components{
 			shooter.addFilter(smartptr<GamePadFilter>(q));
 		}
 };
-
 #endif

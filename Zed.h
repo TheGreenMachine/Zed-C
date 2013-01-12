@@ -2,12 +2,14 @@
 #define ZED_H
 #include "WPILib.h"
 class Zed : public SimpleRobot {
-
-public:
-	Zed();
-
-	void Autonomous();
-
-	void OperatorControl();
+	public:
+		Zed();
+		void Autonomous();
+		void OperatorControl();
+		void mechanismSet();
+	private:
+		float speedX;
+		float speedY;
+		float rotation;
 };
 #endif
