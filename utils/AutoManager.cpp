@@ -1,14 +1,14 @@
 #include "AutoManager.h"
 
-typedef std::vector::iterator iter; //For readability
+typedef std::vector<smartptr<AutoStep> >::iterator iter; //For readability
 
 void AutoManager::run(){
-	for(iter i = steps.begin(); steps != steps.end() && isRunning(); ++i){
-		i->start();
-		while(isRunning() && !i->isDone()){
-			i->run();
+	for(iter i = steps.begin(); i != steps.end() && isRunning(); ++i){
+		(*i)->init();
+		while(isRunning() && !((*i)->isDone() )){
+			(*i)->run();
 		}
-		i->finish();
+		(*i)->finish();
 	}
 }
 

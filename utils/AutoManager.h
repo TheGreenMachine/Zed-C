@@ -1,8 +1,9 @@
 #ifndef AUTO_MANAGER_H
 #define AUTO_MANAGER_H
 #include <vector>
+#include "smartptr.h"
 #include "WPILib.h"
-
+#include "AutoStep.h"
 class AutoManager {
 	public:
 		AutoManager(SimpleRobot& base, 
@@ -11,8 +12,8 @@ class AutoManager {
 			steps(inputSteps){}
 		void run();
 	private:
-		std::vector<smartptr<AutoStep> > steps;
 		SimpleRobot& robot;
+		std::vector<smartptr<AutoStep> > steps;
 		bool isRunning();
 };
 #endif
