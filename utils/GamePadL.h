@@ -52,7 +52,7 @@ public:
 		 kButton08, kButton09, kButton10, kButton11, kButton12, kNumButtonTypes
 	} ButtonType;
 
-	explicit GamepadL(unsigned port);
+	explicit GamepadL(unsigned int port);
 	GamepadL(unsigned port, unsigned numAxisTypes, unsigned numButtonTypes);
 	virtual ~GamepadL();
 
