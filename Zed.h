@@ -8,9 +8,11 @@ class Zed : public SimpleRobot {
 		void OperatorControl();
 		void mechanismSet();
 	private:
+                //All of these default init correctly
 		float speedX;
 		float speedY;
 		float rotation;
 		float shooterPower;
+                bool collect;
 };
 #endif
