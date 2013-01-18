@@ -26,8 +26,10 @@ void Zed::OperatorControl(){
 
 void Zed::updateDriverStation(){
   DriverStationLCD* lcd = DriverStationLCD::GetInstance();
+  lcd.Clear();
   lcd.Printf(DriverStationLCD::kUser_Line1, 0,
       "Shooter Power: %f", shooterPower);
+  lcd.Update();
 }
 void Zed::mechanismSet(){
         updateDriverStation();
