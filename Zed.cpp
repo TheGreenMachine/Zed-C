@@ -24,7 +24,14 @@ void Zed::OperatorControl(){
 	}
 }
 
+void Zed::updateDriverStation(){
+  DriverStationLCD* lcd = DriverStationLCD::GetInstance();
+  lcd.Printf(DriverStationLCD::kUser_Line1, 0,
+      "Shooter Power: %f", shooterPower);
+}
 void Zed::mechanismSet(){
+        updateDriverStation();
+
 	Components& comps = Components::getInstance();
 
         //Drive
@@ -35,7 +42,7 @@ void Zed::mechanismSet(){
         
         //Collector
         comps.collectorMotor.SetSpeed(
-            collect? 75 : 0
+            collect? 0.75 : 0
         );
 }
 START_ROBOT_CLASS(Zed);

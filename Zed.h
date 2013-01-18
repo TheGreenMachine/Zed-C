@@ -8,6 +8,7 @@ class Zed : public SimpleRobot {
 		void OperatorControl();
 		void mechanismSet();
 	private:
+                void updateDriverStation();
                 //All of these default init correctly
 		float speedX;
 		float speedY;
