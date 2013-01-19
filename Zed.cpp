@@ -19,8 +19,9 @@ void Zed::OperatorControl(){
 		else if(comps.shooter.GetRawButton(8)){
 			shooterPower-=0.01;
 		}
-
-                collect = comps.driver.GetRawButton(6);
+		collect = comps.driver.GetRawButton(6);
+		mechanismSet();
+		Wait(.005);
 	}
 }
 
@@ -31,6 +32,7 @@ void Zed::updateDriverStation(){
       "Shooter Power: %f", shooterPower);
   lcd->UpdateLCD();
 }
+
 void Zed::mechanismSet(){
         updateDriverStation();
 
