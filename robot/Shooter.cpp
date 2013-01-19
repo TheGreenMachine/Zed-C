@@ -59,3 +59,4 @@ void Shooter::setAngle(double angle){
 	rotator.Set(angle);
 
 }
+

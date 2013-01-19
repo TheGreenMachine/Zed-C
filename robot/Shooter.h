@@ -6,6 +6,7 @@ class Shooter{
 		Shooter(int, int, int);
 		void setAngle(double);
 		void setVelocity(double);
+
 	private:
 		CANJaguar shooter1;
 		CANJaguar shooter2;
@@ -23,6 +24,8 @@ class Shooter{
 		static const int P3 = 1;
 		static const int I3 = 0;
 		static const int D3 = 0;
+		
+		
 };
 #endif
 

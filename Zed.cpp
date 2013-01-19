@@ -2,6 +2,7 @@
 #include "utils/utils.h"
 #include "Components.h"
 #include "WPILib.h"
+#include "robot/Shooter.h"
 
 Zed::Zed(){}
 
@@ -13,11 +14,26 @@ void Zed::OperatorControl(){
 		speedX = comps.driver.GetLeftX();
 		speedY = comps.driver.GetLeftY();
 		rotation = comps.driver.GetRightX();
+		
+
 		if(comps.shooter.GetRawButton(6)){
-			shooterPower+=0.01;
+			shooterSpeed+=SHOOTER_MEDIUM_STEP;
 		}
 		else if(comps.shooter.GetRawButton(8)){
-			shooterPower-=0.01;
+			shooterSpeed-=SHOOTER_MEDIUM_STEP;
+		}
+		else if(comps.shooter.GetRawButton(1)){
+			shooterSpeed= SHOOTER_LOW_SPEED;
+		}
+		else if(comps.shooter.GetRawButton(2)){
+			shooterSpeed= SHOOTER_MEDIUM_SPEED;
+		}
+		else if(comps.shooter.GetRawButton(3)){
+			shooterSpeed= SHOOTER_HIGH_SPEED;
+		}
+		else {
+			shooterSpeed+=comps.shooter.GetRawAxis(5)*SHOOTER_LARGE_STEP;
+			shooterSpeed+=comps.shooter.GetRawAxis(6)*SHOOTER_SMALL_STEP;
 		}
 		collect = comps.driver.GetRawButton(6);
 		mechanismSet();
@@ -29,7 +45,7 @@ void Zed::updateDriverStation(){
   DriverStationLCD* lcd = DriverStationLCD::GetInstance();
   lcd->Clear();
   lcd->PrintfLine(DriverStationLCD::kUser_Line1, 0,
-      "Shooter Power: %f", shooterPower);
+      "Shooter Speed: %f", shooterSpeed);
   lcd->UpdateLCD();
 }
 
@@ -42,7 +58,7 @@ void Zed::mechanismSet(){
 	comps.driveTrain.MecanumDrive_Cartesian(speedX, speedY, rotation);
         
         //Shooter
-	comps.shooterMotor.setVelocity(shooterPower);
+	comps.shooterMotor.setVelocity(shooterSpeed);
         
         //Collector
         comps.collectorMotor.SetSpeed(
