@@ -26,10 +26,10 @@ void Zed::OperatorControl(){
 
 void Zed::updateDriverStation(){
   DriverStationLCD* lcd = DriverStationLCD::GetInstance();
-  lcd.Clear();
-  lcd.Printf(DriverStationLCD::kUser_Line1, 0,
+  lcd->Clear();
+  lcd->PrintfLine(DriverStationLCD::kUser_Line1, 0,
       "Shooter Power: %f", shooterPower);
-  lcd.Update();
+  lcd->UpdateLCD();
 }
 void Zed::mechanismSet(){
         updateDriverStation();
@@ -40,7 +40,7 @@ void Zed::mechanismSet(){
 	comps.driveTrain.MecanumDrive_Cartesian(speedX, speedY, rotation);
         
         //Shooter
-	comps.shooterMotor.SetSpeed(shooterPower);
+	comps.shooterMotor.setVelocity(shooterPower);
         
         //Collector
         comps.collectorMotor.SetSpeed(

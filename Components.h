@@ -1,6 +1,8 @@
 #ifndef COMPONENTS_H
 #define COMPONENTS_H
 #include "utils/utils.h"
+#include "WPILib.h"
+#include "robot/Shooter.h"
 
 class Components{
 	public:
@@ -8,7 +10,7 @@ class Components{
 		FilteredGamePad driver;
 		FilteredGamePad shooter;
 		RobotDrive driveTrain;
-		Jaguar shooterMotor;
+		Shooter shooterMotor;
 		Jaguar collectorMotor;
 		
 	private:
@@ -27,7 +29,7 @@ class Components{
 			shooter(SHOOTER_PORT),
 			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL),
 			shooterMotor(SHOOTER_MOTOR),
-			collectorMotor(COLLECTOR_MOTOR),
+			collectorMotor(COLLECTOR_MOTOR)
 		{
 			QuadraticFilter* q = new QuadraticFilter(); 
 			DeadZoneFilter* d = new DeadZoneFilter(); 
