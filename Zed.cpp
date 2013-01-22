@@ -11,9 +11,9 @@ void Zed::Autonomous(){}
 void Zed::OperatorControl(){
 	Components& comps = Components::getInstance();
 	while(IsEnabled() && IsOperatorControl()){
-		speedX = comps.driver.GetLeftX();
+		rotation = comps.driver.GetLeftX();
 		speedY = comps.driver.GetLeftY();
-		rotation = comps.driver.GetRightX();
+		speedX = comps.driver.GetRightX();
 		
 
 		if(comps.shooter.GetRawButton(6)){
@@ -48,6 +48,8 @@ void Zed::updateDriverStation(){
       "Shooter Speed: %f", shooterSpeed);
   lcd->UpdateLCD();
 }
+
+
 
 void Zed::mechanismSet(){
         updateDriverStation();

@@ -15,10 +15,10 @@ class Components{
 		
 	private:
 		//Warning these numbers are made up :)
-		static const unsigned short FRONT_LEFT_WHEEL = 0;
-		static const unsigned short BACK_LEFT_WHEEL = 1;
-		static const unsigned short FRONT_RIGHT_WHEEL = 2;
-		static const unsigned short BACK_RIGHT_WHEEL = 3;
+		static const unsigned short FRONT_LEFT_WHEEL = 2;
+		static const unsigned short BACK_LEFT_WHEEL = 3;
+		static const unsigned short FRONT_RIGHT_WHEEL = 1;
+		static const unsigned short BACK_RIGHT_WHEEL = 4;
 		static const unsigned short DRIVER_PORT = 1;
 		static const unsigned short SHOOTER_PORT = 2;
 		static const unsigned short SHOOTER_MOTOR_1 = 4;
