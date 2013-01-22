@@ -10,8 +10,8 @@ class Components{
 		FilteredGamePad driver;
 		FilteredGamePad shooter;
 		RobotDrive driveTrain;
-		Shooter shooterMotor;
-		Jaguar collectorMotor;
+		//Shooter shooterMotor;
+		//Jaguar collectorMotor;
 		
 	private:
 		//Warning these numbers are made up :)
@@ -19,8 +19,8 @@ class Components{
 		static const unsigned short BACK_LEFT_WHEEL = 1;
 		static const unsigned short FRONT_RIGHT_WHEEL = 2;
 		static const unsigned short BACK_RIGHT_WHEEL = 3;
-		static const unsigned short DRIVER_PORT = 0;
-		static const unsigned short SHOOTER_PORT = 1;
+		static const unsigned short DRIVER_PORT = 1;
+		static const unsigned short SHOOTER_PORT = 2;
 		static const unsigned short SHOOTER_MOTOR_1 = 4;
 		static const unsigned short SHOOTER_MOTOR_2 = 6;
 		static const unsigned short SHOOTER_MOTOR_3 = 7;
@@ -29,9 +29,9 @@ class Components{
 		Components():
 			driver(DRIVER_PORT),
 			shooter(SHOOTER_PORT),
-			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL),
-			shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3),
-			collectorMotor(COLLECTOR_MOTOR)
+			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL)
+			//shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3),
+			//collectorMotor(COLLECTOR_MOTOR)
 		{
 			QuadraticFilter* q = new QuadraticFilter(); 
 			DeadZoneFilter* d = new DeadZoneFilter(); 

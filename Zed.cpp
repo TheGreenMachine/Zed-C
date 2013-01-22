@@ -32,8 +32,8 @@ void Zed::OperatorControl(){
 			shooterSpeed= SHOOTER_HIGH_SPEED;
 		}
 		else {
-			shooterSpeed+=comps.shooter.GetRawAxis(5)*SHOOTER_LARGE_STEP;
-			shooterSpeed+=comps.shooter.GetRawAxis(6)*SHOOTER_SMALL_STEP;
+			shooterSpeed+= comps.shooter.GetRawAxis(5)*SHOOTER_LARGE_STEP;
+			shooterSpeed+= comps.shooter.GetRawAxis(6)*SHOOTER_SMALL_STEP;
 		}
 		collect = comps.driver.GetRawButton(6);
 		mechanismSet();
@@ -58,11 +58,11 @@ void Zed::mechanismSet(){
 	comps.driveTrain.MecanumDrive_Cartesian(speedX, speedY, rotation);
         
         //Shooter
-	comps.shooterMotor.setVelocity(shooterSpeed);
+	//comps.shooterMotor.setVelocity(shooterSpeed);
         
         //Collector
-        comps.collectorMotor.SetSpeed(
-            collect? 0.75 : 0
-        );
+      //  comps.collectorMotor.SetSpeed(
+        //    collect? 0.75 : 0
+        //);
 }
 START_ROBOT_CLASS(Zed);
