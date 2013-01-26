@@ -33,11 +33,11 @@ class Components{
 			//shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3),
 			//collectorMotor(COLLECTOR_MOTOR)
 		{
-			QuadraticFilter* q = new QuadraticFilter(); 
+			CubicFilter* q = new CubicFilter(); 
 			DeadZoneFilter* d = new DeadZoneFilter(); 
 			driver.addFilter(smartptr<GamePadFilter>(q));
 			driver.addFilter(smartptr<GamePadFilter>(d));
-			q = new QuadraticFilter(); //Not sure if this second allocation is necessary
+			q = new CubicFilter(); //Not sure if this second allocation is necessary
 			d = new DeadZoneFilter(); //Not sure if this second allocation is necessary
 			shooter.addFilter(smartptr<GamePadFilter>(q));
 			shooter.addFilter(smartptr<GamePadFilter>(d));

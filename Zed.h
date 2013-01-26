@@ -1,12 +1,19 @@
 #ifndef ZED_H
 #define ZED_H
 #include "WPILib.h"
+#include <vector>
+struct Packet{
+	double x, y, dist;
+	bool isCenter;
+};
 class Zed : public SimpleRobot {
 	public:
 		Zed();
 		void Autonomous();
 		void OperatorControl();
 		void mechanismSet();
+		std::vector<Packet> parsePacket();
+		float autoTrack(bool);
 	private:
 		void updateDriverStation();
 		//All of these default init correctly
@@ -23,5 +30,7 @@ class Zed : public SimpleRobot {
         static const double SHOOTER_HIGH_SPEED = 4000;
         static const double SHOOTER_MEDIUM_SPEED = 2000;
         static const double SHOOTER_LOW_SPEED = 0;
+        
+        
 };
 #endif

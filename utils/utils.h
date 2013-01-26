@@ -4,7 +4,7 @@
 #include "GamePadL.h"
 #include "smartptr.h"
 #include "GamePadFilter.h"
-#include "QuadraticFilter.h"
+#include "CubicFilter.h"
 #include "DeadZoneFilter.h"
 #include "ToggleHelper.h"
 #include "AutoManager.h"

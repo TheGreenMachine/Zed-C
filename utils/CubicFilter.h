@@ -1,8 +1,8 @@
-#ifndef QUADRATIC_FILTER_H
-#define QUADRATIC_FILTER_H
+#ifndef CUBIC_FILTER_H
+#define CUBIC_FILTER_H
 #include "GamePadFilter.h"
 
-class QuadraticFilter : public GamePadFilter {
+class CubicFilter : public GamePadFilter {
 	public :
 		float LeftX(float x){return x*x*x;}
 		float LeftY(float x){return x*x*x;}
