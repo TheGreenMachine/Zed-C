@@ -9,5 +9,6 @@
 #include "ToggleHelper.h"
 #include "AutoManager.h"
 #include "AutoStep.h"
-
+#include "NullPIDOutput.h"
+#include "MutablePIDInput.h"
 #endif

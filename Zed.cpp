@@ -13,10 +13,14 @@ void Zed::Autonomous(){}
 void Zed::OperatorControl(){
 	Components& comps = Components::getInstance();
 	while(IsEnabled() && IsOperatorControl()){
-		rotation = comps.driver.GetLeftX();
-		speedY = comps.driver.GetLeftY();
-		speedX = comps.driver.GetRightX();
-		
+		speedX = comps.driver.GetLeftX();
+		speedY = -comps.driver.GetLeftY();
+		if(comps.shooter.GetRawButton(5)){
+			//rotation = PID;
+		}
+		else {
+			rotation = comps.driver.GetRightX();
+		}
 
 		if(comps.shooter.GetRawButton(6)){
 			shooterSpeed+=SHOOTER_MEDIUM_STEP;
@@ -58,15 +62,23 @@ bool isCenter(Packet p){
 bool isntCenter(Packet p){
 	return !p.isCenter;
 }
+bool absDist(Packet p1,Packet p2){
+	double dist1=p1.x*p1.x+p1.y*p1.y;
+	double dist2=p2.x*p2.x+p2.y*p2.y;
+	return dist1<=dist2;
+}
 
 typedef std::vector<Packet>::iterator iter;
-float Zed::autoTrack(bool highGoal){
-	std:vector<Packet> packets = parsePacket();
+void Zed::autoTrack(bool highGoal){
+	std::vector<Packet> packets = parsePacket();
 	packets.erase(
 			std::remove_if(packets.begin(), packets.end(), highGoal?isntCenter:isCenter),
 			packets.end());
-	
-	return 0.0;
+	iter pos =std::min_element(packets.begin(),packets.end(),absDist);
+	if(pos == packets.end()) return;
+	Components& comps = Components::getInstance();
+	comps.angleInput->set(pos->y);
+	comps.rotationInput->set(pos->x);
 }
 
 std::vector<Packet> Zed::parsePacket(){
@@ -101,7 +113,7 @@ void Zed::mechanismSet(){
 	Components& comps = Components::getInstance();
 
         //Drive
-	comps.driveTrain.MecanumDrive_Cartesian(speedX, speedY, rotation);
+	comps.driveTrain.drive(speedX, speedY, rotation);
         
         //Shooter
 	//comps.shooterMotor.setVelocity(shooterSpeed);

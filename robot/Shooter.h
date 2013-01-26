@@ -26,6 +26,7 @@ class Shooter{
 		static const int D3 = 0;
 		
 		
+		
 };
 #endif
 

@@ -3,13 +3,18 @@
 #include "utils/utils.h"
 #include "WPILib.h"
 #include "robot/Shooter.h"
+#include "robot/DriveTrain.h"
 
 class Components{
 	public:
 		static Components& getInstance(){static Components instance; return instance;}
 		FilteredGamePad driver;
 		FilteredGamePad shooter;
-		RobotDrive driveTrain;
+		DriveTrain driveTrain;
+		MutablePIDInput* angleInput;
+		MutablePIDInput* rotationInput;
+		PIDController rotationPID;
+		PIDController anglePID;
 		//Shooter shooterMotor;
 		//Jaguar collectorMotor;
 		
@@ -25,13 +30,26 @@ class Components{
 		static const unsigned short SHOOTER_MOTOR_2 = 6;
 		static const unsigned short SHOOTER_MOTOR_3 = 7;
 		static const unsigned short COLLECTOR_MOTOR = 5;
-		static const std::vector<smartptr<GamePadFilter> > FILTERS; 
+		static const std::vector<smartptr<GamePadFilter> > FILTERS;
+		static const unsigned short ROTATION_P = 1;
+		static const unsigned short ROTATION_I = 0;
+		static const unsigned short ROTATION_D = 0;
+		static const unsigned short ANGLE_P = 1;
+		static const unsigned short ANGLE_I = 0;
+		static const unsigned short ANGLE_D = 0;
+
 		Components():
 			driver(DRIVER_PORT),
 			shooter(SHOOTER_PORT),
-			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL)
+			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL),
 			//shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3),
 			//collectorMotor(COLLECTOR_MOTOR)
+			angleInput(MutablePIDInput::getPointer()),
+			rotationInput(MutablePIDInput::getPointer()),
+			rotationPID(ROTATION_P, ROTATION_I, ROTATION_D,
+								rotationInput, NullPIDOutput::getPointer()),
+			anglePID(ANGLE_P, ANGLE_I, ANGLE_D,
+					angleInput, NullPIDOutput::getPointer())
 		{
 			CubicFilter* q = new CubicFilter(); 
 			DeadZoneFilter* d = new DeadZoneFilter(); 
