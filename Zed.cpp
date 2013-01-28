@@ -12,13 +12,22 @@ void Zed::Autonomous(){}
 
 void Zed::OperatorControl(){
 	Components& comps = Components::getInstance();
+	ToggleHelper PIDToggle;
 	while(IsEnabled() && IsOperatorControl()){
 		speedX = comps.driver.GetLeftX();
 		speedY = -comps.driver.GetLeftY();
-		if(comps.shooter.GetRawButton(5)){
-			//rotation = PID;
+		if(isTracking){
+			autoTrack();
+		}
+		if(PIDToggle(comps.shooter.GetRawButton(5))){
+			comps.anglePID.Enable();
+			isTracking = true;
+			rotation = comps.anglePID.Get();
+			angle = comps.rotationPID.Get();
 		}
 		else {
+			comps.anglePID.Disable();
+			isTracking = false;
 			rotation = comps.driver.GetRightX();
 		}
 
@@ -69,13 +78,21 @@ bool absDist(Packet p1,Packet p2){
 }
 
 typedef std::vector<Packet>::iterator iter;
-void Zed::autoTrack(bool highGoal){
+void Zed::autoTrack(){
 	std::vector<Packet> packets = parsePacket();
-	packets.erase(
-			std::remove_if(packets.begin(), packets.end(), highGoal?isntCenter:isCenter),
-			packets.end());
-	iter pos =std::min_element(packets.begin(),packets.end(),absDist);
+	iter sep = std::remove_if(packets.begin(), packets.end(), isCenter);
+	iter minLower = std::min_element(packets.begin(), sep, absDist);
+	iter minUpper = std::min_element(sep, packets.end(), absDist);
+	
+	iter pos;
+	if(minLower == sep)
+		pos = minUpper;
+	else if(minUpper == packets.end())
+		pos = minLower;
+	else 
+		pos = absDist(*minLower, *minUpper) ? minLower : minUpper;
 	if(pos == packets.end()) return;
+	
 	Components& comps = Components::getInstance();
 	comps.angleInput->set(pos->y);
 	comps.rotationInput->set(pos->x);
@@ -116,7 +133,8 @@ void Zed::mechanismSet(){
 	comps.driveTrain.drive(speedX, speedY, rotation);
         
         //Shooter
-	//comps.shooterMotor.setVelocity(shooterSpeed);
+	comps.shooterMotor.setVelocity(shooterSpeed);
+	comps.shooterMotor.setAngle(angle);
         
         //Collector
       //  comps.collectorMotor.SetSpeed(

@@ -13,7 +13,7 @@ class Zed : public SimpleRobot {
 		void OperatorControl();
 		void mechanismSet();
 		std::vector<Packet> parsePacket();
-		void autoTrack(bool);
+		void autoTrack();
 	private:
 		void updateDriverStation();
 		//All of these default init correctly
@@ -21,7 +21,9 @@ class Zed : public SimpleRobot {
 		float speedY;
 		float rotation;
 		float shooterSpeed;
+		float angle;
         bool collect;
+        bool isTracking;
         //constants
         static const double SHOOTER_LARGE_STEP = 50;
         static const double SHOOTER_MEDIUM_STEP = 30;

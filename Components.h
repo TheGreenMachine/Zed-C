@@ -11,11 +11,11 @@ class Components{
 		FilteredGamePad driver;
 		FilteredGamePad shooter;
 		DriveTrain driveTrain;
+		Shooter shooterMotor;
 		MutablePIDInput* angleInput;
 		MutablePIDInput* rotationInput;
 		PIDController rotationPID;
 		PIDController anglePID;
-		//Shooter shooterMotor;
 		//Jaguar collectorMotor;
 		
 	private:
@@ -42,7 +42,7 @@ class Components{
 			driver(DRIVER_PORT),
 			shooter(SHOOTER_PORT),
 			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL),
-			//shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3),
+			shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3),
 			//collectorMotor(COLLECTOR_MOTOR)
 			angleInput(MutablePIDInput::getPointer()),
 			rotationInput(MutablePIDInput::getPointer()),
