@@ -13,6 +13,7 @@ void Zed::Autonomous(){}
 void Zed::OperatorControl(){
 	Components& comps = Components::getInstance();
 	ToggleHelper PIDToggle;
+	ToggleHelper highOrLow;
 	while(IsEnabled() && IsOperatorControl()){
 		speedX = comps.driver.GetLeftX();
 		speedY = -comps.driver.GetLeftY();
@@ -29,6 +30,9 @@ void Zed::OperatorControl(){
 			comps.anglePID.Disable();
 			isTracking = false;
 			rotation = comps.driver.GetRightX();
+		}
+		if(highOrLow(comps.shooter.GetRawButton(7))){
+			isHighGoal = !isHighGoal;
 		}
 
 		if(comps.shooter.GetRawButton(6)){
@@ -68,7 +72,7 @@ bool isCenter(Packet p){
 	return p.isCenter;
 }
 
-bool isntCenter(Packet p){
+bool isNotCenter(Packet p){
 	return !p.isCenter;
 }
 bool absDist(Packet p1,Packet p2){
@@ -80,22 +84,15 @@ bool absDist(Packet p1,Packet p2){
 typedef std::vector<Packet>::iterator iter;
 void Zed::autoTrack(){
 	std::vector<Packet> packets = parsePacket();
-	iter sep = std::remove_if(packets.begin(), packets.end(), isCenter);
-	iter minLower = std::min_element(packets.begin(), sep, absDist);
-	iter minUpper = std::min_element(sep, packets.end(), absDist);
+	iter sep = std::remove_if(packets.begin(), packets.end(), isHighGoal? isNotCenter: isCenter);
+	packets.erase(sep, packets.end());
+	iter min = std::min_element(packets.begin(), packets.end(), absDist);
 	
-	iter pos;
-	if(minLower == sep)
-		pos = minUpper;
-	else if(minUpper == packets.end())
-		pos = minLower;
-	else 
-		pos = absDist(*minLower, *minUpper) ? minLower : minUpper;
-	if(pos == packets.end()) return;
+	if(min == packets.end()) return;
 	
 	Components& comps = Components::getInstance();
-	comps.angleInput->set(pos->y);
-	comps.rotationInput->set(pos->x);
+	comps.angleInput->set(min->y);
+	comps.rotationInput->set(min->x);
 }
 
 std::vector<Packet> Zed::parsePacket(){
@@ -136,9 +133,7 @@ void Zed::mechanismSet(){
 	comps.shooterMotor.setVelocity(shooterSpeed);
 	comps.shooterMotor.setAngle(angle);
         
-        //Collector
-      //  comps.collectorMotor.SetSpeed(
-        //    collect? 0.75 : 0
-        //);
+    	//Collector
+	comps.collectorMotor.Set(collect);
 }
 START_ROBOT_CLASS(Zed);

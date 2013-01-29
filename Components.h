@@ -12,24 +12,26 @@ class Components{
 		FilteredGamePad shooter;
 		DriveTrain driveTrain;
 		Shooter shooterMotor;
+		Collector collectorMotor;
 		MutablePIDInput* angleInput;
 		MutablePIDInput* rotationInput;
 		PIDController rotationPID;
 		PIDController anglePID;
-		//Jaguar collectorMotor;
 		
 	private:
 		//Warning these numbers are made up :)
-		static const unsigned short FRONT_LEFT_WHEEL = 2;
-		static const unsigned short BACK_LEFT_WHEEL = 3;
-		static const unsigned short FRONT_RIGHT_WHEEL = 1;
+		static const unsigned short FRONT_LEFT_WHEEL = 1;
+		static const unsigned short BACK_LEFT_WHEEL = 2;
+		static const unsigned short FRONT_RIGHT_WHEEL = 3;
 		static const unsigned short BACK_RIGHT_WHEEL = 4;
 		static const unsigned short DRIVER_PORT = 1;
 		static const unsigned short SHOOTER_PORT = 2;
 		static const unsigned short SHOOTER_MOTOR_1 = 4;
 		static const unsigned short SHOOTER_MOTOR_2 = 6;
 		static const unsigned short SHOOTER_MOTOR_3 = 7;
-		static const unsigned short COLLECTOR_MOTOR = 5;
+		static const unsigned short COLLECTOR_MOTOR_1 = 5;
+		static const unsigned short COLLECTOR_MOTOR_2 = 8;
+		static const unsigned short COLLECTOR_MOTOR_3 = 9;
 		static const std::vector<smartptr<GamePadFilter> > FILTERS;
 		static const unsigned short ROTATION_P = 1;
 		static const unsigned short ROTATION_I = 0;
@@ -43,7 +45,7 @@ class Components{
 			shooter(SHOOTER_PORT),
 			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL),
 			shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3),
-			//collectorMotor(COLLECTOR_MOTOR)
+			collectorMotor(COLLECTOR_MOTOR_1, COLLECTOR_MOTOR_2, COLLECTOR_MOTOR_3),
 			angleInput(MutablePIDInput::getPointer()),
 			rotationInput(MutablePIDInput::getPointer()),
 			rotationPID(ROTATION_P, ROTATION_I, ROTATION_D,

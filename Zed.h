@@ -24,6 +24,7 @@ class Zed : public SimpleRobot {
 		float angle;
         bool collect;
         bool isTracking;
+        bool isHighGoal;
         //constants
         static const double SHOOTER_LARGE_STEP = 50;
         static const double SHOOTER_MEDIUM_STEP = 30;
