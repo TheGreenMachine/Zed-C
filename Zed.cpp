@@ -16,7 +16,7 @@ void Zed::OperatorControl(){
 	ToggleHelper highOrLow;
 	while(IsEnabled() && IsOperatorControl()){
 		speedX = comps.driver.GetLeftX();
-		speedY = -comps.driver.GetLeftY();
+		speedY = comps.driver.GetLeftY();
 		if(isTracking){
 			autoTrack();
 		}
@@ -130,10 +130,10 @@ void Zed::mechanismSet(){
 	comps.driveTrain.drive(speedX, speedY, rotation);
         
         //Shooter
-	comps.shooterMotor.setVelocity(shooterSpeed);
-	comps.shooterMotor.setAngle(angle);
+	//comps.shooterMotor.setVelocity(shooterSpeed);
+	//comps.shooterMotor.setAngle(angle);
         
     	//Collector
-	comps.collectorMotor.Set(collect);
+	//comps.collectorMotor.Set(collect);
 }
 START_ROBOT_CLASS(Zed);
