@@ -30,7 +30,7 @@ float FilteredGamePad::GetRightX(){
 }
 
 float FilteredGamePad::GetRightY(){
-	float result = GamepadL::GetLeftY();
+	float result = GamepadL::GetRightY();
 	for(iter i = filters.begin(); i != filters.end(); ++i){
 		result = (*i)->LeftY(result);
 	}
