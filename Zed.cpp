@@ -17,22 +17,26 @@ void Zed::OperatorControl(){
 	while(IsEnabled() && IsOperatorControl()){
 		speedX = comps.driver.GetLeftX();
 		speedY = comps.driver.GetLeftY();
+		if(PIDToggle(comps.shooter.GetRawButton(5))){
+			isTracking = !isTracking
+		}
+
 		if(isTracking){
 			autoTrack();
 		}
-		if(PIDToggle(comps.shooter.GetRawButton(5))){
+		if(highOrLow(comps.shooter.GetRawButton(7))){
+			isHighGoal = !isHighGoal;
+		}
+		if(isTracking){
 			comps.anglePID.Enable();
-			isTracking = true;
-			rotation = comps.anglePID.Get();
-			angle = comps.rotationPID.Get();
+			comps.rotationPID.Enable();
+			angle = comps.anglePID.Get();
+			rotation = comps.rotationPID.Get();
 		}
 		else {
 			comps.anglePID.Disable();
-			isTracking = false;
+			comps.rotationPID.Disable();
 			rotation = comps.driver.GetRightX();
-		}
-		if(highOrLow(comps.shooter.GetRawButton(7))){
-			isHighGoal = !isHighGoal;
 		}
 
 		if(comps.shooter.GetRawButton(6)){
@@ -61,11 +65,11 @@ void Zed::OperatorControl(){
 }
 
 void Zed::updateDriverStation(){
-  DriverStationLCD* lcd = DriverStationLCD::GetInstance();
-  lcd->Clear();
-  lcd->PrintfLine(DriverStationLCD::kUser_Line1, 0,
-      "Shooter Speed: %f", shooterSpeed);
-  lcd->UpdateLCD();
+	DriverStationLCD* lcd = DriverStationLCD::GetInstance();
+	lcd->Clear();
+	lcd->PrintfLine(DriverStationLCD::kUser_Line1, 0,
+			"Shooter Speed: %f", shooterSpeed);
+	lcd->UpdateLCD();
 }
 
 bool isCenter(Packet p){
@@ -110,11 +114,11 @@ std::vector<Packet> Zed::parsePacket(){
 	packetStr[1023] = '\0';
 	char* packet = strtok_r(packetStr,":",&save1);
 	while(packet != NULL){
-			sscanf(packet, "%lg,%lg,%lg,%d", &x,&y,&dist,&isCenter);
-			Packet p = {x,y,dist,isCenter};
-			packets.push_back(p);
-			packet=strtok(NULL,":");
-			strtok_r(packet,NULL,&save2);
+		sscanf(packet, "%lg,%lg,%lg,%d", &x,&y,&dist,&isCenter);
+		Packet p = {x,y,dist,isCenter};
+		packets.push_back(p);
+		packet=strtok(NULL,":");
+		strtok_r(packet,NULL,&save2);
 	}
 	return packets;
 }
@@ -122,18 +126,18 @@ std::vector<Packet> Zed::parsePacket(){
 
 
 void Zed::mechanismSet(){
-        updateDriverStation();
+	updateDriverStation();
 
 	Components& comps = Components::getInstance();
 
-        //Drive
+	//Drive
 	comps.driveTrain.drive(speedX, speedY, rotation);
-        
-        //Shooter
+				
+	//Shooter
 	//comps.shooterMotor.setVelocity(shooterSpeed);
 	//comps.shooterMotor.setAngle(angle);
-        
-    	//Collector
+				
+	//Collector
 	//comps.collectorMotor.Set(collect);
 }
 START_ROBOT_CLASS(Zed);

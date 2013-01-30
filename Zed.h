@@ -33,7 +33,5 @@ class Zed : public SimpleRobot {
         static const double SHOOTER_HIGH_SPEED = 4000;
         static const double SHOOTER_MEDIUM_SPEED = 2000;
         static const double SHOOTER_LOW_SPEED = 0;
-        
-        
 };
 #endif
