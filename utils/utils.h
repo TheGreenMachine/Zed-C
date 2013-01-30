@@ -11,5 +11,4 @@
 #include "AutoStep.h"
 #include "NullPIDOutput.h"
 #include "MutablePIDInput.h"
-#include "Collector.h"
 #endif

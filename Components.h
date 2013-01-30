@@ -4,6 +4,7 @@
 #include "WPILib.h"
 #include "robot/Shooter.h"
 #include "robot/DriveTrain.h"
+#include "robot/Collector.h"
 
 class Components{
 	public:
