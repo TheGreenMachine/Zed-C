@@ -58,8 +58,25 @@ void Zed::OperatorControl(){
 		}
 
 		//Handle collector and conveyor
-		collectorDirection = 0;
-		conveyorVelocity = 0;
+		if(comps.driver.GetRawButton(8)){
+			collectorDirection = 1;
+		}
+		else if (comps.driver.GetRawButton(6)){
+			collectorDirection = -1;
+		}
+		else{
+			collectorDirection = 0;
+		}
+		
+		if(comps.driver.GetRawButton(7)){
+			conveyorVelocity = Relay::kForward;
+		}
+		else if (comps.driver.GetRawButton(5)){
+			conveyorVelocity = Relay::kReverse;
+		}
+		else{
+			conveyorVelocity = Relay::kOff;
+		}
 		mechanismSet();
 		Wait(.005);
 	}
@@ -142,6 +159,10 @@ void Zed::mechanismSet(){
 	//comps.shooterMotor.setAngle(angle);
 				
 	//Collector
-	//comps.collectorMotor.set(collect);
+	comps.collectorMotor.set(collectorDirection);
+	
+	//Conveyor
+	comps.conveyorMotor.set(conveyorVelocity);
+	
 }
 START_ROBOT_CLASS(Zed);

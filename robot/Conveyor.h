@@ -1,6 +1,5 @@
-#ifndef CONVEYOR_CPP
-#define CONVEYOR_CPP
-
+#ifndef CONVEYOR_H
+#define CONVEYOR_H
 #include "WPILib.h"
 
 class Conveyor{
@@ -8,13 +7,8 @@ class Conveyor{
 		Conveyor(int port)
 			:conveyor(port){}
 
-		set(double velocity){
-			conveyor.Set(velocity);
-		}
+		void set(Relay::Value velocity);
 
-	static const double CONVEYOR_IN = 1;
-	static const double CONVEYOR_OUT = -1;
-	static const double CONVEYOR_STOP = 0;
 	private:
 		Victor conveyor;
 };
