@@ -26,7 +26,7 @@ class Zed : public SimpleRobot {
 		bool isHighGoal; //Targeting the high goal?
 		bool isClosest; //Targeting the closest goal?
 		int collectorDirection;//Direction of collector
-		int conveyorSpeed; //Velocity for the conveyor
+		int conveyorVelocity; //Velocity for the conveyor
 		//constants
 		static const double SHOOTER_LARGE_STEP = 50;
 		static const double SHOOTER_MEDIUM_STEP = 30;
@@ -35,5 +35,7 @@ class Zed : public SimpleRobot {
 		static const double SHOOTER_HIGH_SPEED = 4000;
 		static const double SHOOTER_MEDIUM_SPEED = 2000;
 		static const double SHOOTER_LOW_SPEED = 0;
+		
+		static const double D_PAD_FACTOR = .60;
 };
 #endif
