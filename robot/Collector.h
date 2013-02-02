@@ -5,7 +5,8 @@
 class Collector{
 	public:
 		Collector(int right, int left, int rol);
-		//Takes a direction 
+		
+		//Takes a direction
 		void set(short); 
 	private:
 		Relay starR;

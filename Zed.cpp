@@ -142,6 +142,6 @@ void Zed::mechanismSet(){
 	//comps.shooterMotor.setAngle(angle);
 				
 	//Collector
-	//comps.collectorMotor.Set(collect);
+	//comps.collectorMotor.set(collect);
 }
 START_ROBOT_CLASS(Zed);
