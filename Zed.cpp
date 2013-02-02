@@ -13,10 +13,17 @@ void Zed::Autonomous(){}
 void Zed::OperatorControl(){
 	Components& comps = Components::getInstance();
 	ToggleHelper PIDToggle;
-	ToggleHelper highOrLow;
 	while(IsEnabled() && IsOperatorControl()){
-		speedX = comps.driver.GetLeftX();
-		speedY = comps.driver.GetLeftY();
+		//Get the strafing directions for the robot
+		if(comps.driver.GetRawAxis(5) != 0 ||	comps.driver.GetRawAxis(6) != 0){
+			speedX = comps.driver.GetRawAxis(5) * D_PAD_FACTOR;
+			speedY = comps.driver.GetRawAxis(6) * D_PAD_FACTOR;
+		}
+		else {
+			speedX = comps.driver.GetLeftX();
+			speedY = comps.driver.GetLeftY();
+		}
+		//Handle Vision Tracking
 		if(PIDToggle(comps.shooter.GetRawButton(5))){
 			isTracking = !isTracking;
 		}
@@ -24,8 +31,16 @@ void Zed::OperatorControl(){
 		if(isTracking){
 			autoTrack();
 		}
-		if(highOrLow(comps.shooter.GetRawButton(7))){
-			isHighGoal = !isHighGoal;
+		if(comps.shooter.GetRawButton(4)){
+			isClosest = true;
+		}
+		if(comps.shooter.GetRawButton(4)){
+			isHighGoal = true;
+			isClosest = false;
+		}
+		if(comps.shooter.GetRawButton(2)){
+			isHighGoal = false;
+			isClosest = false;
 		}
 		if(isTracking){
 			comps.anglePID.Enable();
@@ -37,28 +52,14 @@ void Zed::OperatorControl(){
 			comps.anglePID.Disable();
 			comps.rotationPID.Disable();
 			rotation = comps.driver.GetRightX();
+			if(rotation == 0){
+				rotation = comps.shooter.GetRightX();
+			}
 		}
 
-		if(comps.shooter.GetRawButton(6)){
-			shooterSpeed+=SHOOTER_MEDIUM_STEP;
-		}
-		else if(comps.shooter.GetRawButton(8)){
-			shooterSpeed-=SHOOTER_MEDIUM_STEP;
-		}
-		else if(comps.shooter.GetRawButton(1)){
-			shooterSpeed= SHOOTER_LOW_SPEED;
-		}
-		else if(comps.shooter.GetRawButton(2)){
-			shooterSpeed= SHOOTER_MEDIUM_SPEED;
-		}
-		else if(comps.shooter.GetRawButton(3)){
-			shooterSpeed= SHOOTER_HIGH_SPEED;
-		}
-		else {
-			shooterSpeed+= comps.shooter.GetRawAxis(5)*SHOOTER_LARGE_STEP;
-			shooterSpeed+= comps.shooter.GetRawAxis(6)*SHOOTER_SMALL_STEP;
-		}
-		collect = comps.driver.GetRawButton(6);
+		//Handle collector and conveyor
+		collectorDirection = 0;
+		conveyorVelocity = 0;
 		mechanismSet();
 		Wait(.005);
 	}
@@ -88,8 +89,11 @@ bool absDist(Packet p1,Packet p2){
 typedef std::vector<Packet>::iterator iter;
 void Zed::autoTrack(){
 	std::vector<Packet> packets = parsePacket();
-	iter sep = std::remove_if(packets.begin(), packets.end(), isHighGoal? isNotCenter: isCenter);
-	packets.erase(sep, packets.end());
+	if(!isClosest){
+		iter sep = std::remove_if(packets.begin(), packets.end(), 
+				isHighGoal? isNotCenter: isCenter);
+		packets.erase(sep, packets.end());
+	}
 	iter min = std::min_element(packets.begin(), packets.end(), absDist);
 	
 	if(min == packets.end()) return;
