@@ -4,12 +4,12 @@
 
 class Collector{
 	public:
-		Collector(int, int, int);
-		void Set(bool);
-		
+		Collector(int right, int left, int rol);
+		//Takes a direction 
+		void set(short); 
 	private:
-		Victor starR;
-		Victor starL;
-		Victor belt;
+		Relay starR;
+		Relay starL;
+		Relay roller;
 };
 #endif
