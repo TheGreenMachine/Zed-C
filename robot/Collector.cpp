@@ -1,11 +1,11 @@
 #include "Collector.h"
 
 Collector::Collector(int left, int right, int rol):
-	starL(left),
 	starR(right),
+	starL(left),
 	roller(rol){}
 
-void set(short direction){
+void Collector::set(short direction){
 	Relay::Value val;
 	switch(direction){
 		case 1 :
