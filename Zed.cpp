@@ -18,7 +18,7 @@ void Zed::OperatorControl(){
 		speedX = comps.driver.GetLeftX();
 		speedY = comps.driver.GetLeftY();
 		if(PIDToggle(comps.shooter.GetRawButton(5))){
-			isTracking = !isTracking
+			isTracking = !isTracking;
 		}
 
 		if(isTracking){
