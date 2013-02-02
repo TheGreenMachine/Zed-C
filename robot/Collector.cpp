@@ -1,25 +1,23 @@
 #include "Collector.h"
 
-Collector::Collector(int left, int right, int rol):
+Collector::Collector(int left, int right):
 	starR(right),
-	starL(left),
-	roller(rol){}
+	starL(left){}
 
 void Collector::set(short direction){
-	Relay::Value val;
 	switch(direction){
 		case 1 :
-			val = Relay::kForward;
+			starL.Set(Relay::kForward);
+			starR.Set(Relay::kReverse);
 			break;
 		case -1 :
-			val = Relay::kReverse;
+			starL.Set(Relay::kReverse);
+			starR.Set(Relay::kForward);
 			break;
 		case 0 :
-			val = Relay::kOff;
+			starL.Set(Relay::kOff);
+			starR.Set(Relay::kOff);
 			break;
 	}
 
-	starL.Set(val);
-	starR.Set(val);
-	roller.Set(val);
 }

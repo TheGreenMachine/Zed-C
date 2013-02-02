@@ -35,7 +35,6 @@ class Components{
 		static const unsigned short SHOOTER_MOTOR_4 = 7;
 		static const unsigned short COLLECTOR_MOTOR_1 = 5;
 		static const unsigned short COLLECTOR_MOTOR_2 = 8;
-		static const unsigned short COLLECTOR_MOTOR_3 = 9;
 		static const unsigned short CONVEYOR_MOTOR = 3;
 		static const unsigned short ROTATION_P = 1;
 		static const unsigned short ROTATION_I = 0;
@@ -49,7 +48,7 @@ class Components{
 			shooter(SHOOTER_PORT),
 			driveTrain(FRONT_LEFT_WHEEL, BACK_LEFT_WHEEL, FRONT_RIGHT_WHEEL, BACK_RIGHT_WHEEL),
 			shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3, SHOOTER_MOTOR_4),
-			collectorMotor(COLLECTOR_MOTOR_1, COLLECTOR_MOTOR_2, COLLECTOR_MOTOR_3),
+			collectorMotor(COLLECTOR_MOTOR_1, COLLECTOR_MOTOR_2),
 			conveyorMotor(CONVEYOR_MOTOR),
 			angleInput(MutablePIDInput::getPointer()),
 			rotationInput(MutablePIDInput::getPointer()),
