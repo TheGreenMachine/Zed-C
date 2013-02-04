@@ -13,3 +13,7 @@ Makefile
 *.lai
 *.la
 *.a
+
+#Danny's scripts
+pull
+add

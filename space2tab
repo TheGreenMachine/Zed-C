@@ -2,25 +2,22 @@
 package main
 
 import (
-  "fmt"
-  "os"
-  "bytes"
-  "io/ioutil"
+	"os"
+	"bytes"
+	"io/ioutil"
+	"path/filepath"
 )
 
 func main(){
-  replace, old := []byte{'\t'}, []byte{' ',' '}
-  for _, file := range os.Args[1:] {
-    contents, err := ioutil.ReadFile(file)
-    if err != nil {
-      fmt.Fprintln(os.Stderr, err.Error())
-      os.Exit(1)
-    }
-    result := bytes.Replace(contents, old, replace, -1)
-    ioutil.WriteFile(file, result, 0644)
-    if err != nil {
-      fmt.Fprintln(os.Stderr, err.Error())
-      os.Exit(1)
-    }
-  }
+	replace, old := []byte{'\t'}, []byte{' ',' '}
+	files := []string{}
+	for _, name := range os.Args[1:] {
+		matches, _ := filepath.Glob(name)
+		files = append(files, matches...)
+	}
+	for _, file := range files {
+		contents, _ := ioutil.ReadFile(file)
+		result := bytes.Replace(contents, old, replace, -1)
+		ioutil.WriteFile(file, result, 0644)
+	}
 }
