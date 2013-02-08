@@ -77,6 +77,12 @@ void Zed::OperatorControl(){
 		else{
 			conveyorVelocity = Relay::kOff;
 		}
+		
+		//Handle auger
+		
+		
+		
+		
 		mechanismSet();
 		Wait(.005);
 	}

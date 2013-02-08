@@ -1,5 +1,5 @@
-#ifndef COLLECTOR
-#define COLLECTOR
+#ifndef COLLECTOR_H
+#define COLLECTOR_H
 #include "WPILib.h"
 
 class Collector{

@@ -6,6 +6,8 @@
 #include "robot/Collector.h"
 #include "robot/DriveTrain.h"
 #include "robot/Conveyor.h"
+#include "robot/Auger.h"
+#include "robot/ScrewLift.h"
 
 class Components{
 	public:
@@ -16,6 +18,8 @@ class Components{
 		Shooter shooterMotor;
 		Collector collectorMotor;
 		Conveyor conveyorMotor;
+		Auger augerMotor;
+		ScrewLift screwLiftMotor;
 		MutablePIDInput* angleInput;
 		MutablePIDInput* rotationInput;
 		PIDController rotationPID;
@@ -36,6 +40,10 @@ class Components{
 		static const unsigned short COLLECTOR_MOTOR_1 = 5;
 		static const unsigned short COLLECTOR_MOTOR_2 = 8;
 		static const unsigned short CONVEYOR_MOTOR = 3;
+		static const unsigned short AUGER_MOTOR = 4;
+		static const unsigned short AUGER_INPUT = 6;		
+		static const unsigned short SCREWLIFT_MOTOR = 5;
+		static const unsigned short SCREWLIFT_INPUT = 7;
 		static const unsigned short ROTATION_P = 1;
 		static const unsigned short ROTATION_I = 0;
 		static const unsigned short ROTATION_D = 0;
@@ -50,6 +58,8 @@ class Components{
 			shooterMotor(SHOOTER_MOTOR_1, SHOOTER_MOTOR_2, SHOOTER_MOTOR_3, SHOOTER_MOTOR_4),
 			collectorMotor(COLLECTOR_MOTOR_1, COLLECTOR_MOTOR_2),
 			conveyorMotor(CONVEYOR_MOTOR),
+			augerMotor(AUGER_MOTOR, AUGER_INPUT),
+			screwLiftMotor(SCREWLIFT_MOTOR, SCREWLIFT_INPUT),
 			angleInput(MutablePIDInput::getPointer()),
 			rotationInput(MutablePIDInput::getPointer()),
 			rotationPID(ROTATION_P, ROTATION_I, ROTATION_D,
