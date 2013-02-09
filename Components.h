@@ -44,6 +44,8 @@ class Components{
 		static const unsigned short AUGER_INPUT = 6;		
 		static const unsigned short SCREWLIFT_MOTOR = 5;
 		static const unsigned short SCREWLIFT_INPUT = 7;
+		static const unsigned short SCREWLIFT_UPPER = 8;
+		static const unsigned short SCREWLIFT_LOWER = 9;
 		static const unsigned short ROTATION_P = 1;
 		static const unsigned short ROTATION_I = 0;
 		static const unsigned short ROTATION_D = 0;
@@ -59,7 +61,7 @@ class Components{
 			collectorMotor(COLLECTOR_MOTOR_1, COLLECTOR_MOTOR_2),
 			conveyorMotor(CONVEYOR_MOTOR),
 			augerMotor(AUGER_MOTOR, AUGER_INPUT),
-			screwLiftMotor(SCREWLIFT_MOTOR, SCREWLIFT_INPUT),
+			screwLiftMotor(SCREWLIFT_MOTOR, SCREWLIFT_INPUT, SCREWLIFT_UPPER, SCREWLIFT_LOWER),
 			angleInput(MutablePIDInput::getPointer()),
 			rotationInput(MutablePIDInput::getPointer()),
 			rotationPID(ROTATION_P, ROTATION_I, ROTATION_D,

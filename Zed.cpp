@@ -3,12 +3,15 @@
 #include "Components.h"
 #include "WPILib.h"
 #include "robot/Shooter.h"
+#include "robot/Auger.h"
 #include <vector>
 #include <algorithm>
 
 Zed::Zed(){}
 
-void Zed::Autonomous(){}
+void Zed::Autonomous(){
+
+}
 
 void Zed::OperatorControl(){
 	Components& comps = Components::getInstance();
@@ -79,9 +82,12 @@ void Zed::OperatorControl(){
 		}
 		
 		//Handle auger
-		
-		
-		
+		if(comps.shooter.GetRawButton(10)){
+			comps.augerMotor.setState(Auger::AUGER_FEEDING_START);
+		}
+		else if(comps.shooter.GetRawButton(9)){
+			comps.augerMotor.setState(Auger::AUGER_LOADING_START);
+		}
 		
 		mechanismSet();
 		Wait(.005);
@@ -161,8 +167,8 @@ void Zed::mechanismSet(){
 	comps.driveTrain.drive(speedX, speedY, rotation);
 				
 	//Shooter
-	//comps.shooterMotor.setVelocity(shooterSpeed);
-	//comps.shooterMotor.setAngle(angle);
+	comps.shooterMotor.setVelocity(shooterSpeed);
+	comps.shooterMotor.setAngle(angle);
 				
 	//Collector
 	comps.collectorMotor.set(collectorDirection);
@@ -170,5 +176,5 @@ void Zed::mechanismSet(){
 	//Conveyor
 	comps.conveyorMotor.set(conveyorVelocity);
 	
-}
+	}
 START_ROBOT_CLASS(Zed);
