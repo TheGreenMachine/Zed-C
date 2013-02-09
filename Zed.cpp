@@ -150,13 +150,10 @@ std::vector<Packet> Zed::parsePacket(){
 		sscanf(packet, "%lg,%lg,%lg,%d", &x,&y,&dist,&isCenter);
 		Packet p = {x,y,dist,isCenter};
 		packets.push_back(p);
-		packet=strtok(NULL,":");
-		strtok_r(packet,NULL,&save2);
+		packet=strtok_r(NULL,":", &save1);
 	}
 	return packets;
 }
-
-
 
 void Zed::mechanismSet(){
 	updateDriverStation();

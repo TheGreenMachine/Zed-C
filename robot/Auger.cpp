@@ -29,19 +29,19 @@ void Auger::doAuger(){
 		auger.Set(Relay::kReverse);
 		break;
 	case AUGER_LOADING_START:
-		home.Reset();
-		home.Start();
 		auger.Set(Relay::kForward);
 		state = AUGER_LOADING_WAITOFF;
 		break;
 	case AUGER_LOADING_WAITOFF:
 		auger.Set(Relay::kForward);
 		if(!homeInput.Get()){
+			home.Reset();
+			home.Start();
 			state = AUGER_LOADING_WAITON;
 		}
 		break;
 	case AUGER_LOADING_WAITON:
-		if(homeInput.Get()){
+		if(home.Get()){
 			auger.Set(Relay::kOff);
 			state = AUGER_IDLE;
 		}
@@ -50,19 +50,19 @@ void Auger::doAuger(){
 		}
 		break;
 	case AUGER_FEEDING_START:
-		home.Reset();
-		home.Start();
 		auger.Set(Relay::kReverse);
 		state = AUGER_FEEDING_WAITOFF;
 		break;
 	case AUGER_FEEDING_WAITOFF:
 		auger.Set(Relay::kReverse);
 		if(!homeInput.Get()){
+			home.Reset();
+			home.Start();
 			state = AUGER_FEEDING_WAITON;
 		}
 		break;
 	case AUGER_FEEDING_WAITON:
-		if(homeInput.Get()){
+		if(home.Get()){
 			auger.Set(Relay::kOff);
 			state = AUGER_IDLE;
 		}
