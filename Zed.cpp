@@ -6,6 +6,7 @@
 #include "robot/Auger.h"
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
 
 Zed::Zed(){}
 
@@ -132,28 +133,63 @@ void Zed::autoTrack(){
 	comps.rotationInput->set(min->x);
 }
 
-std::vector<Packet> Zed::parsePacket(){
-	double x;
-	double y;
-	double dist;
-	int isCenter;
-	char packetStr[1024];
-	char *save1;
-	char *save2;
-	std::vector<Packet> packets;
-	NetworkTable* packetTable = NetworkTable::GetTable ("vision");
-	std::string netPacket = packetTable->GetString("vtdata");
-	strncpy(packetStr, netPacket.c_str(),1023);
-	packetStr[1023] = '\0';
-	char* packet = strtok_r(packetStr,":",&save1);
-	while(packet != NULL){
-		sscanf(packet, "%lg,%lg,%lg,%d", &x,&y,&dist,&isCenter);
-		Packet p = {x,y,dist,isCenter};
+typedef std::string::iterator siter;
+std::vector<Packet> parsePacket(std::string netPacket){
+	using std::string;
+	using std::vector;
+	vector<Packet> packets;
+	siter start = netPacket.begin();
+	siter end = netPacket.end();
+	vector<string> tokens;
+
+	//Tokenize
+	while(start != end){
+		siter pos = std::find(start, end, ':');
+		//The first character was a ':' 
+		if(pos == start){
+			++start;
+			continue;
+		}
+		//Malformed packet
+		else if(pos == end){
+			break;
+		}
+		else {
+			tokens.push_back(string(start, pos));
+			start = pos + 1;
+		}
+	}
+	//Parse tokens
+	for(std::vector<string>::iterator i = tokens.begin(); i != tokens.end(); ++i){
+		siter start = i->begin();
+		siter end	= i->end();
+		
+		siter xpos = find(start, end, ',');
+		string xstr = string(start, xpos);
+		start = xpos+1;
+
+		siter ypos = find(start, end, ',');
+		string ystr = string(start, ypos);
+		start = ypos+1;
+
+		siter distpos = find(start, end, ',');
+		string diststr = string(start, distpos);
+		start = distpos+1;
+
+		siter highpos = find(start, end, ',');
+		string highstr = string(start, highpos);
+		start = highpos+1;
+
+		double x = atof(xstr.c_str());
+		double y = atof(ystr.c_str());
+		double dist = atof(diststr.c_str());
+		bool isHigh = atoi(highstr.c_str());
+		Packet p = {x, y, dist, isHigh};
 		packets.push_back(p);
-		packet=strtok_r(NULL,":", &save1);
 	}
 	return packets;
 }
+
 
 void Zed::mechanismSet(){
 	updateDriverStation();
