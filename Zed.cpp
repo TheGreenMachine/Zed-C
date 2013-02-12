@@ -204,10 +204,13 @@ void Zed::mechanismSet(){
 	comps.shooterMotor.setAngle(angle);
 				
 	//Collector
-	comps.collectorMotor.set(collectorDirection);
+	comps.collectorMotor.setStarDirection(collectorDirection);
+	comps.collectorMotor.doCollector();
 	
 	//Conveyor
 	comps.conveyorMotor.set(conveyorVelocity);
 	
+	//Auger
+	comps.augerMotor.doAuger();
 	}
 START_ROBOT_CLASS(Zed);

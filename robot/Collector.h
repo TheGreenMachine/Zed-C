@@ -9,13 +9,14 @@ class Collector{
 			COLLECTOR_DEPLOY,
 			COLLECTOR_DEPLOYED,
 			COLLECTOR_UNDEPLOY,
-			COLLERTOR_UNDEPLOYED
+			COLLECTOR_UNDEPLOYED
 		};
 		
 		//Takes a direction
-		void set(short);
+		void setStar(int);
 		void setState(collectorState);
-		void deploy();
+		void doCollector();
+		void setStarDirection(int dir);
 	private:
 		Relay collectorM;
 		DigitalInput deployed;
@@ -23,5 +24,6 @@ class Collector{
 		Relay starR;
 		Relay starL;
 		collectorState state;
+		int starDirection;
 };
 #endif
