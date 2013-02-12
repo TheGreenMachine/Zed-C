@@ -134,61 +134,72 @@ void Zed::autoTrack(){
 }
 
 typedef std::string::iterator siter;
-std::vector<Packet> parsePacket(std::string netPacket){
-	using std::string;
-	using std::vector;
-	vector<Packet> packets;
-	siter start = netPacket.begin();
-	siter end = netPacket.end();
-	vector<string> tokens;
+std::vector<std::string> tokenize(std::string str, char sep, bool endWithSep){
+	std::vector<std::string> tokens;
+	siter start = str.begin();
+	siter end = str.end();
 
-	//Tokenize
 	while(start != end){
-		siter pos = std::find(start, end, ':');
-		//The first character was a ':' 
+		siter pos = std::find(start, end, sep);
 		if(pos == start){
 			++start;
 			continue;
 		}
-		//Malformed packet
 		else if(pos == end){
-			break;
+			if(endWithSep){
+				start = pos;
+			}
+			else {
+				tokens.push_back(std::string(start, pos));
+				start = pos;
+			}
 		}
 		else {
-			tokens.push_back(string(start, pos));
+			tokens.push_back(std::string(start, pos));
 			start = pos + 1;
 		}
 	}
+	return tokens;
+}
+
+
+std::vector<Packet> parsePacket(std::string netPacket){
+	using std::string;
+	using std::vector;
+	vector<Packet> packets;
+	vector<string> tokens = tokenize(netPacket, ':', true);
+
 	//Parse tokens
 	for(std::vector<string>::iterator i = tokens.begin(); i != tokens.end(); ++i){
-		siter start = i->begin();
-		siter end	= i->end();
-		
-		siter xpos = find(start, end, ',');
-		string xstr = string(start, xpos);
-		start = xpos+1;
+		vector<string> values = tokenize(*i, ',', false);
+		if(values.size() != 4){
+			continue;
+		}
+		double x, y, dist;
+		bool isHigh;
+		std::stringstream convert(std::stringstream::in | std::stringstream::out);
 
-		siter ypos = find(start, end, ',');
-		string ystr = string(start, ypos);
-		start = ypos+1;
+		convert << values[0];
+		convert >> x;
+	
+		convert.clear();
+		convert << values[1];
+		convert >> y;
 
-		siter distpos = find(start, end, ',');
-		string diststr = string(start, distpos);
-		start = distpos+1;
+		convert.clear();
+		convert << values[2];
+		convert >> dist;
 
-		siter highpos = find(start, end, ',');
-		string highstr = string(start, highpos);
-		start = highpos+1;
+		convert.clear();
+		convert << values[3];
+		convert >> isHigh;
 
-		double x = atof(xstr.c_str());
-		double y = atof(ystr.c_str());
-		double dist = atof(diststr.c_str());
-		bool isHigh = atoi(highstr.c_str());
 		Packet p = {x, y, dist, isHigh};
 		packets.push_back(p);
 	}
 	return packets;
 }
+
 
 
 void Zed::mechanismSet(){
