@@ -7,6 +7,7 @@
 #include <vector>
 #include <algorithm>
 #include <cstdlib>
+#include <sstream>
 
 Zed::Zed(){}
 
