@@ -237,7 +237,6 @@ void Zed::mechanismSet(){
 				
 	//Shooter
 	comps.shooterMotor.setVelocity(shooterSpeed);
-	comps.shooterMotor.setAngle(angle);
 				
 	//Screw Lift
 	comps.screwLiftMotor.set(lift);
