@@ -32,6 +32,15 @@ void Zed::OperatorControl(){
 		if(PIDToggle(comps.shooter.GetRawButton(5))){
 			isTracking = !isTracking;
 		}
+		
+		if(comps.shooter.GetDpadY()>0){
+			isTracking=false;
+			lift=Relay::kForward;
+		}
+		else if(comps.shooter.GetDpadY()<0){
+			isTracking=false;
+			lift=Relay::kReverse;
+		}
 
 		if(isTracking){
 			autoTrack();
@@ -73,6 +82,13 @@ void Zed::OperatorControl(){
 			collectorDirection = 0;
 		}
 		
+		if(comps.driver.GetRawButton(2)){
+			comps.collectorMotor.setState(Collector::COLLECTOR_DEPLOY);
+		}
+		else if(comps.driver.GetRawButton(4)){
+			comps.collectorMotor.setState(Collector::COLLECTOR_UNDEPLOY);
+		}
+		
 		if(comps.driver.GetRawButton(7)){
 			conveyorVelocity = Relay::kForward;
 		}
@@ -84,11 +100,19 @@ void Zed::OperatorControl(){
 		}
 		
 		//Handle auger
-		if(comps.shooter.GetRawButton(10)){
+		if(comps.shooter.GetRawButton(6)){
 			comps.augerMotor.setState(Auger::AUGER_FEEDING_START);
 		}
-		else if(comps.shooter.GetRawButton(9)){
+		else if(comps.shooter.GetRawButton(10)){
 			comps.augerMotor.setState(Auger::AUGER_LOADING_START);
+		}
+		
+		//Handle shooter
+		if(comps.shooter.GetRawButton(8)){
+			shooterSpeed = 0.5;
+		}
+		else {
+			shooterSpeed = 0.0;
 		}
 		
 		mechanismSet();
@@ -215,6 +239,9 @@ void Zed::mechanismSet(){
 	comps.shooterMotor.setVelocity(shooterSpeed);
 	comps.shooterMotor.setAngle(angle);
 				
+	//Screw Lift
+	comps.screwLiftMotor.set(lift);
+	
 	//Collector
 	comps.collectorMotor.setStarDirection(collectorDirection);
 	comps.collectorMotor.doCollector();
