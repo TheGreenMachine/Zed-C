@@ -7,7 +7,7 @@ ScrewLift::ScrewLift(UINT32 elevationInput, UINT32 channel,
 	upperLimit(upperInput),
 	lowerLimit(lowerInput){}
 
-double ScrewLift::setAngle(float ang){
+float ScrewLift::setAngle(float ang){
 	return (ang-27)*0.47;
 }
 
