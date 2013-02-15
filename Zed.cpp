@@ -100,11 +100,19 @@ void Zed::OperatorControl(){
 		}
 		
 		//Handle auger
-		if(comps.shooter.GetRawButton(10)){
+		if(comps.shooter.GetRawButton(6)){
 			comps.augerMotor.setState(Auger::AUGER_FEEDING_START);
 		}
-		else if(comps.shooter.GetRawButton(9)){
+		else if(comps.shooter.GetRawButton(10)){
 			comps.augerMotor.setState(Auger::AUGER_LOADING_START);
+		}
+		
+		//Handle shooter
+		if(comps.shooter.GetRawButton(8)){
+			shooterSpeed = 0.5;
+		}
+		else {
+			shooterSpeed = 0.0;
 		}
 		
 		mechanismSet();
