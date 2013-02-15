@@ -4,15 +4,15 @@
 
 class ScrewLift{
 	public:
-		ScrewLift(UINT32 elevationInput, UINT32 angleInput, 
+		ScrewLift(UINT32 elevationInput, UINT32 channel, 
 				  UINT32 upperInput, UINT32 lowerInput);
 		
 		//Takes a direction
 		void set(Relay::Value); 
-		double getAngle();
+		void setAngle(float);
 	private:
 		Relay elevation;
-		Accelerometer angle;
+		AnalogChannel angle;
 		DigitalInput upperLimit;
 		DigitalInput lowerLimit;
 };

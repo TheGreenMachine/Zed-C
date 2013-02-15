@@ -1,14 +1,14 @@
 #include "ScrewLift.h"
 
-ScrewLift::ScrewLift(UINT32 elevationInput, UINT32 angleInput, 
+ScrewLift::ScrewLift(UINT32 elevationInput, UINT32 channel, 
 					 UINT32 upperInput, UINT32 lowerInput):
 	elevation(elevationInput),
-	angle(angleInput),
+	angle(channel),
 	upperLimit(upperInput),
 	lowerLimit(lowerInput){}
 
-double ScrewLift::getAngle(){
-	return angle.GetAcceleration();
+void ScrewLift::setAngle(float ang){
+	(ang-27)*0.47;
 }
 
 void ScrewLift::set(Relay::Value val){
