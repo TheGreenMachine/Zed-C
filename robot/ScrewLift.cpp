@@ -7,8 +7,8 @@ ScrewLift::ScrewLift(UINT32 elevationInput, UINT32 channel,
 	upperLimit(upperInput),
 	lowerLimit(lowerInput){}
 
-void ScrewLift::setAngle(float ang){
-	(ang-27)*0.47;
+double ScrewLift::setAngle(float ang){
+	return (ang-27)*0.47;
 }
 
 void ScrewLift::set(Relay::Value val){

@@ -9,7 +9,7 @@ class ScrewLift{
 		
 		//Takes a direction
 		void set(Relay::Value); 
-		void setAngle(float);
+		double setAngle(float);
 	private:
 		Relay elevation;
 		AnalogChannel angle;
