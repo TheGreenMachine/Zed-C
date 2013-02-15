@@ -20,6 +20,7 @@ class Zed : public SimpleRobot {
 		float speedY; //Strafing speed vertiacal
 		float rotation; //Rotation speed 
 		float shooterSpeed; //Shooter speed
+		Relay::Value lift; //Screw lift movement
 		float angle; //The angle of the shooter
 		float lastSpeed; //Last manually set speed
 		bool isTracking; //Is vision tracking enabled
