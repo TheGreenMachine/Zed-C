@@ -4,7 +4,6 @@
 class Shooter{
 	public:
 		Shooter(int, int, int, int);
-		void setAngle(double);
 		void setVelocity(double);
 
 	private:

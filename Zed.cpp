@@ -28,6 +28,7 @@ void Zed::OperatorControl(){
 			speedX = comps.driver.GetLeftX();
 			speedY = comps.driver.GetLeftY();
 		}
+		
 		//Handle Vision Tracking
 		if(PIDToggle(comps.shooter.GetRawButton(5))){
 			isTracking = !isTracking;
@@ -45,7 +46,7 @@ void Zed::OperatorControl(){
 		if(isTracking){
 			autoTrack();
 		}
-		if(comps.shooter.GetRawButton(4)){
+		if(comps.shooter.GetRawButton(1)){
 			isClosest = true;
 		}
 		if(comps.shooter.GetRawButton(4)){
@@ -66,6 +67,7 @@ void Zed::OperatorControl(){
 			comps.anglePID.Disable();
 			comps.rotationPID.Disable();
 			rotation = comps.driver.GetRightX();
+			angle = comps.shooter.GetRawAxis(6);
 			if(rotation == 0){
 				rotation = comps.shooter.GetRightX();
 			}
@@ -89,15 +91,22 @@ void Zed::OperatorControl(){
 			comps.collectorMotor.setState(Collector::COLLECTOR_UNDEPLOY);
 		}
 		
-		if(comps.driver.GetRawButton(7)){
+		if(comps.driver.GetRawButton(5)){
 			conveyorVelocity = Relay::kForward;
 		}
-		else if (comps.driver.GetRawButton(5)){
+		else if (comps.driver.GetRawButton(7)){
+			conveyorVelocity = Relay::kReverse;
+		}
+		else if(comps.shooter.GetRawButton(5)){
+			conveyorVelocity = Relay::kForward;
+		}
+		else if (comps.shooter.GetRawButton(7)){
 			conveyorVelocity = Relay::kReverse;
 		}
 		else{
 			conveyorVelocity = Relay::kOff;
 		}
+		
 		
 		//Handle auger
 		if(comps.shooter.GetRawButton(6)){
@@ -237,6 +246,7 @@ void Zed::mechanismSet(){
 				
 	//Shooter
 	comps.shooterMotor.setVelocity(shooterSpeed);
+	comps.screwLiftMotor.setAngle(angle);
 				
 	//Screw Lift
 	comps.screwLiftMotor.set(lift);
