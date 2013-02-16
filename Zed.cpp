@@ -34,11 +34,11 @@ void Zed::OperatorControl(){
 			isTracking = !isTracking;
 		}
 		
-		if(comps.shooter.GetDpadY()>0){
+		if(comps.shooter.GetRawAxis(6)>0){
 			isTracking=false;
 			lift=Relay::kForward;
 		}
-		else if(comps.shooter.GetDpadY()<0){
+		else if(comps.shooter.GetRawAxis(6)<0){
 			isTracking=false;
 			lift=Relay::kReverse;
 		}
@@ -60,14 +60,23 @@ void Zed::OperatorControl(){
 		if(isTracking){
 			comps.anglePID.Enable();
 			comps.rotationPID.Enable();
-			angle = comps.anglePID.Get();
+			
+			double angle = comps.anglePID.Get();
+			if(angle > 0.0){
+				lift = Relay::kForward;
+			}
+			else if(angle < 0.0){
+				lift = Relay::kReverse;
+			}
+			else{
+				lift = Relay::kOff;
+			}
 			rotation = comps.rotationPID.Get();
 		}
 		else {
 			comps.anglePID.Disable();
 			comps.rotationPID.Disable();
 			rotation = comps.driver.GetRightX();
-			angle = comps.shooter.GetRawAxis(6);
 			if(rotation == 0){
 				rotation = comps.shooter.GetRightX();
 			}
@@ -246,7 +255,6 @@ void Zed::mechanismSet(){
 				
 	//Shooter
 	comps.shooterMotor.setVelocity(shooterSpeed);
-	comps.screwLiftMotor.setAngle(angle);
 				
 	//Screw Lift
 	comps.screwLiftMotor.set(lift);

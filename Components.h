@@ -26,32 +26,40 @@ class Components{
 		PIDController anglePID;
 		
 	private:
-		//Warning these numbers are made up :)
-		static const unsigned short FRONT_LEFT_WHEEL = 3;
-		static const unsigned short BACK_LEFT_WHEEL = 2;
-		static const unsigned short FRONT_RIGHT_WHEEL = 1;
-		static const unsigned short BACK_RIGHT_WHEEL = 4;
+		//Controler slots
 		static const unsigned short DRIVER_PORT = 1;
-		static const unsigned short SHOOTER_PORT = 2;
-		static const unsigned short SHOOTER_MOTOR_1 = 4;
-		static const unsigned short SHOOTER_MOTOR_2 = 6;
+		static const unsigned short SHOOTER_PORT = 2;		
+		//Drive train
+		static const unsigned short BACK_RIGHT_WHEEL = 1;
+		static const unsigned short BACK_LEFT_WHEEL = 2;
+		static const unsigned short FRONT_RIGHT_WHEEL = 3;
+		static const unsigned short FRONT_LEFT_WHEEL = 4;
+		//Conveyor
+		static const unsigned short CONVEYOR_MOTOR = 9;		
+		//Shooter
+		static const unsigned short SHOOTER_MOTOR_1 = 1;
+		static const unsigned short SHOOTER_MOTOR_2 = 2;
 		static const unsigned short SHOOTER_MOTOR_3 = 7;
 		static const unsigned short SHOOTER_MOTOR_4 = 7;
-		static const unsigned short COLLECTOR_MOTOR_1 = 5;
-		static const unsigned short COLLECTOR_MOTOR_2 = 8;
-		static const unsigned short COLLECTOR_MOTOR_3 = 8;
+		//Collector
+		static const unsigned short COLLECTOR_MOTOR_1 = 1;
+		static const unsigned short COLLECTOR_MOTOR_2 = 2;
+		static const unsigned short COLLECTOR_MOTOR_3 = 4;
 		static const unsigned short COLLECTOR_INPUT_1 = 7;
 		static const unsigned short COLLECTOR_INPUT_2 = 7;
-		static const unsigned short CONVEYOR_MOTOR = 3;
-		static const unsigned short AUGER_MOTOR = 4;
-		static const unsigned short AUGER_INPUT = 6;		
-		static const unsigned short SCREWLIFT_MOTOR = 5;
+		//Auger
+		static const unsigned short AUGER_MOTOR = 5;
+		static const unsigned short AUGER_INPUT = 6;
+		//Screwlift
+		static const unsigned short SCREWLIFT_MOTOR = 3;
 		static const unsigned short SCREWLIFT_INPUT = 7;
 		static const unsigned short SCREWLIFT_UPPER = 8;
 		static const unsigned short SCREWLIFT_LOWER = 9;
+		//Rotation PID
 		static const unsigned short ROTATION_P = 1;
 		static const unsigned short ROTATION_I = 0;
 		static const unsigned short ROTATION_D = 0;
+		//Angle PID
 		static const unsigned short ANGLE_P = 1;
 		static const unsigned short ANGLE_I = 0;
 		static const unsigned short ANGLE_D = 0;
