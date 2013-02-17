@@ -2,15 +2,18 @@
 #define CONVEYOR_H
 #include "WPILib.h"
 
-class Conveyor{
-	public:
-		Conveyor(int port)
-			:conveyor(port){}
+class Conveyor
+{
+public:
+    Conveyor(int port) :
+        conveyor(port)
+    {
+    }
 
-		void set(Relay::Value velocity);
+    void set(Relay::Value velocity);
 
-	private:
-		Victor conveyor;
+private:
+    Victor conveyor;
 };
 
 #endif
