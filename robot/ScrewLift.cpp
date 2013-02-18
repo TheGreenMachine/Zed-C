@@ -16,6 +16,10 @@ void ScrewLift::set(Relay::Value val)
     {
         elevation.Set(Relay::kOff);
     }
+    else if(val == Relay::kForward && !upperLimit.Get())
+    {
+        elevation.Set(Relay::kOff);
+    }
     else
     {
         elevation.Set(val);
