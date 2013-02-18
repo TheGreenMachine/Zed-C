@@ -1,7 +1,7 @@
 #include "ScrewLift.h"
 
-ScrewLift::ScrewLift(UINT32 elevationInput, UINT32 channel, UINT32 lowerInput) :
-    elevation(elevationInput), angle(channel), lowerLimit(lowerInput)
+ScrewLift::ScrewLift(UINT32 elevationInput, UINT32 channel, UINT32 lowerInput, UINT32 upperInput) :
+    elevation(elevationInput), angle(channel), lowerLimit(lowerInput), upperLimit(upperInput)
 {
 }
 

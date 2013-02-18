@@ -54,11 +54,13 @@ private:
     static const unsigned short COLLECTOR_INPUT_2 = 3;
     //Auger
     static const unsigned short AUGER_MOTOR = 5;
-    static const unsigned short AUGER_INPUT = 1;
+    static const unsigned short AUGER_INPUT1 = 1;
+    static const unsigned short AUGER_INPUT2 = 1;
     //Screwlift
     static const unsigned short SCREWLIFT_MOTOR = 3;
     static const unsigned short SCREWLIFT_INPUT = 1;
     static const unsigned short SCREWLIFT_LOWER = 2;
+    static const unsigned short SCREWLIFT_UPPER = 2;
     //Rotation PID
     static const unsigned short ROTATION_P = 1;
     static const unsigned short ROTATION_I = 0;
@@ -78,9 +80,9 @@ private:
                 collectorMotor(COLLECTOR_MOTOR_1, COLLECTOR_MOTOR_2,
                         COLLECTOR_MOTOR_3, COLLECTOR_INPUT_1, COLLECTOR_INPUT_2),
                 conveyorMotor(CONVEYOR_MOTOR),
-                augerMotor(AUGER_MOTOR, AUGER_INPUT),
+                augerMotor(AUGER_MOTOR, AUGER_INPUT1, AUGER_INPUT2),
                 screwLiftMotor(SCREWLIFT_MOTOR, SCREWLIFT_INPUT,
-                        SCREWLIFT_LOWER),
+                        SCREWLIFT_LOWER, SCREWLIFT_UPPER),
                 angleInput(MutablePIDInput::getPointer()),
                 rotationInput(MutablePIDInput::getPointer()),
                 rotationPID(ROTATION_P, ROTATION_I, ROTATION_D, rotationInput,
