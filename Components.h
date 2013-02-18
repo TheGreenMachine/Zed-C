@@ -51,16 +51,16 @@ private:
     static const unsigned short COLLECTOR_MOTOR_2 = 2;
     static const unsigned short COLLECTOR_MOTOR_3 = 4;
     static const unsigned short COLLECTOR_INPUT_1 = 12;
-    static const unsigned short COLLECTOR_INPUT_2 = 3;
+    static const unsigned short COLLECTOR_INPUT_2 = 13;
     //Auger
     static const unsigned short AUGER_MOTOR = 5;
-    static const unsigned short AUGER_INPUT1 = 1;
+    static const unsigned short AUGER_INPUT1 = 9;
     static const unsigned short AUGER_INPUT2 = 1;
     //Screwlift
     static const unsigned short SCREWLIFT_MOTOR = 3;
     static const unsigned short SCREWLIFT_INPUT = 1;
-    static const unsigned short SCREWLIFT_LOWER = 2;
-    static const unsigned short SCREWLIFT_UPPER = 2;
+    static const unsigned short SCREWLIFT_LOWER = 10;
+    static const unsigned short SCREWLIFT_UPPER = 11;
     //Rotation PID
     static const unsigned short ROTATION_P = 1;
     static const unsigned short ROTATION_I = 0;
