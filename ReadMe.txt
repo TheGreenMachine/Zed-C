@@ -1,1 +1,1 @@
-1816's Zed, the climbing bot with an personality.
+1816's Zed, the climbing bot with a personality.
